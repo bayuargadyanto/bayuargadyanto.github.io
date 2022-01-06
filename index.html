@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Housing Plan Suitability</title>
+    <title>Kesesuaian Rencana Lokasi Perumahan</title>
     <link rel="stylesheet" href="library/leaflet/leaflet.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="library/leaflet/leaflet.js"></script>
@@ -13,7 +13,7 @@
 <body>
     <div id="map">
         <script>
-            var map = L.map('map').setView([-6.975533, 110.416485], 12);
+            var map = L.map('map').setView([-6.976713, 110.415777], 12);
 
             var baseLayers = {
                 'Esri WorldTopoMap': L.tileLayer.provider('Esri.WorldTopoMap'),
@@ -50,11 +50,11 @@
 
 			/* Merubah Tampilan Warna Berdasar Atribut Klas Perumahan */
 			var KlasPerum = {
-				"Sangat Tidak Sesuai":"#f0ece6",
+				"Sangat Tidak Sesuai":"#f0eee4",
 				"Tidak Sesuai":"#f2e4ce",
 				"Kurang Sesuai":"#e8c795",
 				"Rekomendasi":"#f2793d",
-				"Sangat Rekomendasi":"#f75402"
+				"Sangat Rekomendasi":"#8c470b"
 			};
 
             var mapLayers = {
