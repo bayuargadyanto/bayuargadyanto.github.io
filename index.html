@@ -20,11 +20,11 @@
                 'Esri WorldImagery': L.tileLayer.provider('Esri.WorldImagery').addTo(map),
                 'OSM Default': L.tileLayer.provider('OpenStreetMap.DE'),
                 'OSM France': L.tileLayer.provider('OpenStreetMap.France')
-            };
+            };        
 
 
-            /* Memanggil Layer Housing Plan */
-            var HousingPlan = L.geoJson(null, {
+            /* Memanggil Layer 1 */
+            var HousingPlan1 = L.geoJson(null, {
                 style: function(feature) {
                     return {
                         color: "black",
@@ -45,7 +45,7 @@
                 }
             });
             $.getJSON("data/Housing_Plan_Semarang_Geo.json", function(data) {
-                HousingPlan.addData(data);
+                HousingPlan1.addData(data);
             });
 
 			/* Merubah Tampilan Warna Berdasar Atribut Klas Perumahan */
@@ -57,8 +57,45 @@
 				"Sangat Rekomendasi":"#8c470b"
 			};
 
+
+            /* Memanggil Layer 2 */
+            var RawanBanjir = L.geoJson(null, {
+                style: function(feature) {
+                    return {
+                        color: "black",
+                        fillColor: KlasBanjir[feature.properties.Klas_Rawan],
+                        weight: 0.3,
+                        opacity: 0,
+                        fillOpacity: 0.6
+                    };
+                },
+
+                /*Tampilan HTML Pop UP*/
+
+                onEachFeature: function( feature, layer ){
+                    layer.bindPopup(
+                        "Klas Kerawanan : " + "<left>" + feature.properties.Klas_Rawan + "</left>" + "<br>" +
+                        "Luas :" + "<left>" + feature.properties.Shape_Area + "</left>" + " m2"
+                        )
+                }
+            });
+            $.getJSON("data/Rawan_Banjir_Semarang_Geo.json", function(data) {
+                RawanBanjir.addData(data);
+            });
+
+			/* Merubah Tampilan Warna Berdasar Atribut Klas Rawan Banjir */
+			var KlasBanjir = {
+				"Aman":"#d3f0f2",
+				"Cukup Aman":"#9bd1e8",
+				"Agak Rawan":"#6c76cc",
+				"Rawan":"#1326d1",
+				"Sangat Rawan":"#0b0a5c"
+			};
+
+
             var mapLayers = {
-                'Kesesuaian Rencana Perumahan': HousingPlan
+                'Kesesuaian Rencana Perumahan': HousingPlan1,
+                'Kerawanan Banjir': RawanBanjir                            
             };
 
             L.control.layers(baseLayers, mapLayers).addTo(map);
